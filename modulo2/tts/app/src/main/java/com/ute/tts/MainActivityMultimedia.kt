@@ -1,5 +1,6 @@
 package com.ute.tts
 
+
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -118,11 +119,11 @@ class MainActivityMultimedia : AppCompatActivity() {
     }
 
 
-   /* override fun onBackPressed() {
+    override fun onBackPressed() {
         if (this::webView.isInitialized && webView.canGoBack()) {
             webView.goBack()
         } else {
             super.onBackPressed()
         }
-    }*/
+    }
 }
