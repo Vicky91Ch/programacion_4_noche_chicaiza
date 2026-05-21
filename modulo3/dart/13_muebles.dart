@@ -27,7 +27,7 @@ void main() {
     promedio = total / trabajadores;
     }
     }
-  print('La suma total de minutos entrenados es: $total');
+  print('La suma total de muebles vendidos: $total');
   print('El total de trabajadores registrados es: $trabajadores');
   print('Promedio de muebles por trabajador: $promedio');
   }
