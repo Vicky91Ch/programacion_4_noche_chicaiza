@@ -15,7 +15,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MaterialTheme {
                 // ◀ CAMBIA AQUÍ para probar cada sección:
-                // S01_SaludoScreen()
+                S01_SaludoScreen()
                 // S02TextScreen()
                 // S03ButtonScreen()
                 // S04LayoutScreen()
@@ -27,6 +27,7 @@ class MainActivity : ComponentActivity() {
                 // Material 3 TextField, Card, LazyColumn, Scaffold y diálogos
                 // ◀ CAMBIA AQUÍ para probar cada paso:
                 // Paso01TextFieldScreen()
+                // Paso01SumaPreview()
                 Paso02CardScreen()
                 // Paso03_LazyColumnScreen()
                 // Paso04_ScaffoldScreen()

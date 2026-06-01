@@ -29,8 +29,6 @@ fun Paso01TextFieldScreen() {
         Text("Paso 1 · TextField y OutlinedTextField",
             style = MaterialTheme.typography.titleMedium)
         HorizontalDivider()
-
-        DemoBusqueda()
         HorizontalDivider()
         DemoFormularioContacto()
     }
