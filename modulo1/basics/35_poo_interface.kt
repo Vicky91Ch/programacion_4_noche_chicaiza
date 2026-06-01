@@ -9,3 +9,8 @@ class C : A, B {
         println("Y desde C")
     }
 }
+
+fun main() {
+    val objeto = C()
+    objeto.saludar()
+}

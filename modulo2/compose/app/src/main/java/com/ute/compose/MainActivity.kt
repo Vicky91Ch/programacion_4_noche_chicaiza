@@ -15,7 +15,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MaterialTheme {
                 // ◀ CAMBIA AQUÍ para probar cada sección:
-                // S01_SaludoScreen()
+                S01_SaludoScreen()
                 // S02TextScreen()
                 // S03ButtonScreen()
                 // S04LayoutScreen()
