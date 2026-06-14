@@ -1,13 +1,15 @@
-// presentation/ui/client/profile/ProfileScreen.kt
 package com.shopapp.presentation.ui.client.profile
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Logout
+import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -20,8 +22,9 @@ import com.shopapp.theme.*
 
 @Composable
 fun ProfileScreen(
-    authViewModel: AuthViewModel,
-    onLogout:      () -> Unit,
+    authViewModel:      AuthViewModel,
+    onLogout:           () -> Unit,
+    onSendNotification: () -> Unit = {},
 ) {
     val user by authViewModel.currentUser.collectAsState()
 
@@ -32,7 +35,6 @@ fun ProfileScreen(
             .verticalScroll(rememberScrollState())
             .padding(24.dp),
     ) {
-        // ── Avatar y nombre ───────────────────────────────────
         Column(
             modifier            = Modifier
                 .fillMaxWidth()
@@ -76,18 +78,17 @@ fun ProfileScreen(
                     shape  = MaterialTheme.shapes.extraSmall,
                 ) {
                     Text(
-                        text       = "Staff",
-                        color      = Accent,
-                        fontSize   = 11.sp,
-                        fontWeight = FontWeight.Bold,
-                        modifier   = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
+                        text          = "Staff",
+                        color         = Accent,
+                        fontSize      = 11.sp,
+                        fontWeight    = FontWeight.Bold,
+                        modifier      = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
                         letterSpacing = 0.8.sp,
                     )
                 }
             }
         }
 
-        // ── Info del usuario ──────────────────────────────────
         Surface(
             color    = Surface,
             shape    = MaterialTheme.shapes.large,
@@ -95,11 +96,11 @@ fun ProfileScreen(
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(
-                    text      = "Información de la cuenta",
-                    style     = MaterialTheme.typography.labelSmall,
-                    color     = TextSecondary,
+                    text          = "Información de la cuenta",
+                    style         = MaterialTheme.typography.labelSmall,
+                    color         = TextSecondary,
                     letterSpacing = 0.8.sp,
-                    modifier  = Modifier.padding(bottom = 12.dp),
+                    modifier      = Modifier.padding(bottom = 12.dp),
                 )
 
                 listOf(
@@ -133,12 +134,41 @@ fun ProfileScreen(
 
         Spacer(Modifier.height(24.dp))
 
-        // ── Botón cerrar sesión ───────────────────────────────
+        if (user?.isStaff == true) {
+            HorizontalDivider()
+            ListItem(
+                headlineContent   = {
+                    Text("Enviar notificación", fontWeight = FontWeight.Medium)
+                },
+                supportingContent = {
+                    Text("Envía un correo a uno o todos los usuarios")
+                },
+                leadingContent    = {
+                    Icon(
+                        imageVector        = Icons.Default.Send,
+                        contentDescription = null,
+                        tint               = MaterialTheme.colorScheme.primary,
+                    )
+                },
+                trailingContent   = {
+                    Icon(
+                        imageVector        = Icons.AutoMirrored.Filled.ArrowForward,
+                        contentDescription = null,
+                    )
+                },
+                modifier = Modifier.clickable(onClick = onSendNotification),
+            )
+            HorizontalDivider()
+            Spacer(Modifier.height(24.dp))
+        }
+
         var showConfirm by remember { mutableStateOf(false) }
 
         OutlinedButton(
             onClick  = { showConfirm = true },
-            modifier = Modifier.fillMaxWidth().height(52.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(52.dp),
             colors   = ButtonDefaults.outlinedButtonColors(contentColor = Error),
             border   = ButtonDefaults.outlinedButtonBorder.copy(
                 brush = androidx.compose.ui.graphics.SolidColor(Error.copy(alpha = 0.5f)),
@@ -150,7 +180,6 @@ fun ProfileScreen(
             Text("Cerrar sesión", fontWeight = FontWeight.SemiBold)
         }
 
-        // Diálogo de confirmación
         if (showConfirm) {
             AlertDialog(
                 onDismissRequest = { showConfirm = false },
