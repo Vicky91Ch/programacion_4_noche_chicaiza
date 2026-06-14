@@ -1,4 +1,3 @@
-// data/remote/dto/AuthDto.kt
 package com.shopapp.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
@@ -34,20 +33,21 @@ data class AuthResponseDto(
 
 data class TokenRefreshResponseDto(
     val access:  String,
-    val refresh: String?,   // con ROTATE_REFRESH_TOKENS=True también devuelve nuevo refresh
+    val refresh: String?,
 )
 
 data class PasswordResetRequestDto(
-    val email: String,
+    @SerializedName("email") val email: String,
 )
 
 data class PasswordResetConfirmDto(
-    val uid: String,
-    val token: String,
-    @SerializedName("new_password") val newPassword: String,
+    @SerializedName("uid")           val uid:          String,
+    @SerializedName("token")         val token:        String,
+    @SerializedName("new_password")  val newPassword:  String,
+    @SerializedName("new_password2") val newPassword2: String,
 )
 
 data class MessageDto(
     val message: String? = null,
-    val detail: String? = null,
+    val detail:  String? = null,
 )
