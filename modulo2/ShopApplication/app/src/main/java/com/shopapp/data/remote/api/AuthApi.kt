@@ -1,4 +1,3 @@
-// data/remote/api/AuthApi.kt
 package com.shopapp.data.remote.api
 
 import com.shopapp.data.remote.dto.*
@@ -18,4 +17,10 @@ interface AuthApi {
 
     @POST("auth/logout/")
     suspend fun logout(@Body body: LogoutRequest): Response<Unit>
+
+    @POST("auth/password-reset/")
+    suspend fun passwordReset(@Body body: PasswordResetRequestDto): Response<MessageDto>
+
+    @POST("auth/password-reset/confirm/")
+    suspend fun passwordResetConfirm(@Body body: PasswordResetConfirmDto): Response<MessageDto>
 }
