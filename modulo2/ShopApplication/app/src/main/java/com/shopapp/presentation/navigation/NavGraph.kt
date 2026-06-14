@@ -1,4 +1,3 @@
-// presentation/navigation/NavGraph.kt
 package com.shopapp.presentation.navigation
 
 import androidx.compose.foundation.layout.*
@@ -18,8 +17,10 @@ import com.shopapp.presentation.ui.admin.orders.OrderAdminDetailScreen
 import com.shopapp.presentation.ui.admin.orders.OrdersAdminScreen
 import com.shopapp.presentation.ui.admin.products.ProductsAdminScreen
 import com.shopapp.presentation.ui.admin.users.UsersAdminScreen
+import com.shopapp.presentation.ui.auth.ForgotPasswordScreen
 import com.shopapp.presentation.ui.auth.LoginScreen
 import com.shopapp.presentation.ui.auth.RegisterScreen
+import com.shopapp.presentation.ui.auth.ResetPasswordConfirmScreen
 import com.shopapp.presentation.ui.client.orders.OrderDetailScreen
 import com.shopapp.presentation.ui.client.orders.OrdersScreen
 import com.shopapp.presentation.ui.client.profile.ProfileScreen
@@ -82,7 +83,6 @@ fun NavGraph(
         },
     ) { innerPadding ->
 
-        // ── BottomSheet carrito
         if (showCart) {
             CartBottomSheet(
                 cartViewModel   = cartViewModel,
@@ -108,13 +108,14 @@ fun NavGraph(
             // ── LOGIN ───────────────────────────────
             composable(Screen.Login.route) {
                 LoginScreen(
-                    onLoginSuccess = { staff ->
+                    onLoginSuccess       = { staff ->
                         val dest = if (staff) Screen.AdminDashboard.route else Screen.Home.route
                         navController.navigate(dest) {
                             popUpTo(Screen.Login.route) { inclusive = true }
                         }
                     },
                     onNavigateToRegister = { navController.navigate(Screen.Register.route) },
+                    onForgotPassword     = { navController.navigate(Screen.ForgotPassword.route) },  // ← nuevo
                     viewModel            = authViewModel,
                 )
             }
@@ -130,6 +131,26 @@ fun NavGraph(
                     },
                     onNavigateToLogin = { navController.popBackStack() },
                     viewModel         = authViewModel,
+                )
+            }
+
+            // ── FORGOT PASSWORD ─────────────────────
+            composable(Screen.ForgotPassword.route) {
+                ForgotPasswordScreen(
+                    onBack        = { navController.popBackStack() },
+                    onGoToConfirm = { navController.navigate(Screen.ResetPasswordConfirm.route) },
+                )
+            }
+
+            // ── RESET PASSWORD CONFIRM ──────────────
+            composable(Screen.ResetPasswordConfirm.route) {
+                ResetPasswordConfirmScreen(
+                    onBack         = { navController.popBackStack() },
+                    onResetSuccess = {
+                        navController.navigate(Screen.Login.route) {
+                            popUpTo(Screen.Login.route) { inclusive = true }
+                        }
+                    },
                 )
             }
 
@@ -387,7 +408,7 @@ fun NavGraph(
                 }
             }
 
-            // ── ADMIN USERS (CORREGIDO) ────────────
+            // ── ADMIN USERS ────────────────────────
             composable("admin/users") {
                 if (!isStaff) {
                     LaunchedEffect(Unit) {
@@ -419,4 +440,3 @@ fun NavGraph(
         }
     }
 }
-
