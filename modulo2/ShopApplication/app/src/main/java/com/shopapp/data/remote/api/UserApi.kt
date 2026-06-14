@@ -1,4 +1,3 @@
-// data/remote/api/UserApi.kt
 package com.shopapp.data.remote.api
 
 import com.shopapp.data.remote.dto.*
@@ -37,4 +36,9 @@ interface UserApi {
 
     @GET("users/stats/")
     suspend fun getStats(): Response<UserStatsDto>
+
+    @POST("emails/send/")
+    suspend fun sendNotification(
+        @Body body: SendNotificationDto,
+    ): Response<NotificationResultDto>
 }
