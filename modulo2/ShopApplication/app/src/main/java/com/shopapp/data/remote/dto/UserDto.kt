@@ -1,4 +1,3 @@
-// data/remote/dto/UserDto.kt
 package com.shopapp.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
@@ -39,8 +38,6 @@ data class UserStatsDto(
     val staff:    Int,
 )
 
-// ── Mappers ───────────────────────────────────────────────────
-
 fun UserDto.toDomain() = User(
     id         = id,
     username   = username,
@@ -61,4 +58,16 @@ fun UserPayload.toRequest() = UserRequestDto(
     isStaff   = isStaff,
     isActive  = isActive,
     password  = password,
+)
+
+data class SendNotificationDto(
+    @SerializedName("subject") val subject: String,
+    @SerializedName("message") val message: String,
+    @SerializedName("user_id") val userId:  Int? = null,
+)
+
+data class NotificationResultDto(
+    @SerializedName("detail") val detail: String,
+    @SerializedName("sent")   val sent:   Int,
+    @SerializedName("failed") val failed: Int,
 )
