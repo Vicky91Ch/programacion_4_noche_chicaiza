@@ -1,9 +1,10 @@
-// data/repository/AuthRepositoryImpl.kt
 package com.shopapp.data.repository
 
 import com.shopapp.data.local.TokenDataStore
 import com.shopapp.data.remote.api.AuthApi
 import com.shopapp.data.remote.dto.*
+import com.shopapp.data.remote.dto.PasswordResetConfirmDto
+import com.shopapp.data.remote.dto.PasswordResetRequestDto
 import com.shopapp.domain.model.LoggedUser
 import com.shopapp.domain.repository.AuthRepository
 import kotlinx.coroutines.flow.first
@@ -60,7 +61,38 @@ class AuthRepositoryImpl @Inject constructor(
     override suspend fun isLoggedIn(): Boolean =
         !tokenDataStore.getAccessToken().isNullOrBlank()
 
-    // Extrae el mensaje de error legible del JSON de Django
+    override suspend fun requestReset(email: String): Result<String> =
+        runCatching {
+            val response = api.requestPasswordReset(PasswordResetRequestDto(email))
+            if (response.isSuccessful) {
+                response.body()?.detail ?: "Solicitud enviada"
+            } else {
+                error(response.errorBody()?.string() ?: "Error ${response.code()}")
+            }
+        }
+
+    override suspend fun confirmReset(
+        uid:          String,
+        token:        String,
+        newPassword:  String,
+        newPassword2: String,
+    ): Result<String> =
+        runCatching {
+            val response = api.confirmPasswordReset(
+                PasswordResetConfirmDto(
+                    uid          = uid,
+                    token        = token,
+                    newPassword  = newPassword,
+                    newPassword2 = newPassword2,
+                )
+            )
+            if (response.isSuccessful) {
+                response.body()?.detail ?: "Contraseña actualizada"
+            } else {
+                error(response.errorBody()?.string() ?: "Error ${response.code()}")
+            }
+        }
+
     private fun parseErrorMessage(body: String, code: Int): String {
         return try {
             val map = com.google.gson.Gson()

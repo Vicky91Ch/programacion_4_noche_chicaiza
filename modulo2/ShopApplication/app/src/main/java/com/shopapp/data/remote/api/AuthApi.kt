@@ -19,8 +19,8 @@ interface AuthApi {
     suspend fun logout(@Body body: LogoutRequest): Response<Unit>
 
     @POST("auth/password-reset/")
-    suspend fun passwordReset(@Body body: PasswordResetRequestDto): Response<MessageDto>
+    suspend fun requestPasswordReset(@Body body: PasswordResetRequestDto): Response<MessageDto>
 
     @POST("auth/password-reset/confirm/")
-    suspend fun passwordResetConfirm(@Body body: PasswordResetConfirmDto): Response<MessageDto>
+    suspend fun confirmPasswordReset(@Body body: PasswordResetConfirmDto): Response<MessageDto>
 }
