@@ -3,15 +3,20 @@ import 'package:flutter/material.dart';
 class ContadorLimitado extends StatefulWidget {
   final String       etiqueta;
   final int          limite;
+  final int  pasoIncremento;
   final Color        color;          // parámetro extra para demostrar widget.param
   final VoidCallback? onLimite;      // callback opcional — se llama al alcanzar el límite
+  final String? textoBoton;
+
 
   const ContadorLimitado({
     super.key,
     required this.etiqueta,
     this.limite  = 10,
     this.color   = Colors.indigo,
-    this.onLimite,
+    this.onLimite, 
+    this.textoBoton="Sumar",
+    this.pasoIncremento=2
   });
 
   @override
@@ -23,7 +28,7 @@ class _ContadorLimitadoState extends State<ContadorLimitado> {
 
   void _incrementar() {
     if (_valor >= widget.limite) return;    // defensa extra
-    setState(() => _valor++);
+    setState(() => _valor += widget.pasoIncremento);
     if (_valor == widget.limite) {
       widget.onLimite?.call();              // notifica al padre si registró un callback
     }
@@ -65,7 +70,7 @@ class _ContadorLimitadoState extends State<ContadorLimitado> {
           children: [
             FilledButton(
               onPressed: enLimite ? null : _incrementar,    // null = desactivado
-              child: const Text('Sumar'),
+              child: Text(widget.textoBoton ?? 'Incrementar'),
             ),
             const SizedBox(width: 8),
             TextButton(

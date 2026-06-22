@@ -2,8 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:modulo06_widgets/widgets/contador_limitado.dart';
 import 'package:modulo06_widgets/widgets/etiqueta.dart';
+import 'package:modulo06_widgets/widgets/pantalla_contexto.dart';
+import 'package:modulo06_widgets/widgets/reloj.dart';
 import 'package:modulo06_widgets/widgets/servicio_estado.dart';
 import 'widgets/catalogo_basicos.dart';
+import 'widgets/indicador.dart';
 
 // ┌──────────────────────────────────────────────────────────────────┐
 // │  Cambia este número y guarda (Ctrl+S) para navegar entre pasos. │
@@ -16,10 +19,17 @@ import 'widgets/catalogo_basicos.dart';
 // │  7  Paso 5   BuildContext                                        │
 // │  8  Paso 6   Composición de widgets                             │
 // └──────────────────────────────────────────────────────────────────┘
-const int paso = 4;
+const int paso = 8;
 
 void main() => runApp(MaterialApp(
   debugShowCheckedModeBanner: false,
+  theme: ThemeData(
+    colorScheme:  ColorScheme.fromSeed(
+      seedColor:  const Color.fromARGB(255, 150, 0, 130),          // ← cambia aquí
+      brightness: Brightness.light,     // ← Brightness.dark para modo oscuro
+    ),
+    useMaterial3: true,
+  ),
   home: switch (paso) {
     1 => const Scaffold(body: Center(child: Saludo())),
     2 => const CatalogoBasicos(),
@@ -60,6 +70,31 @@ void main() => runApp(MaterialApp(
               limite:   10,
               color:    Colors.indigo,
             ),
+          ],
+        ),
+      ),
+    ),
+    6 => Scaffold(                              // Paso 4
+      appBar: AppBar(title: const Text('Cronómetro')),
+      body: const Center(child: Reloj()),
+    ),
+    7 => const PantallaContexto(),    // Paso 5 — ya tiene su propio Scaffold
+    8 => Scaffold(                             // Paso 6
+      body: Center(
+        child: Wrap(
+          spacing:    32,
+          runSpacing: 24,
+          alignment:  WrapAlignment.center,
+          children: const [
+            Indicador(label: 'Servidores activos', valor: '8',
+                      color: Colors.green, icono: Icons.dns),
+            Indicador(label: 'Alertas críticas',   valor: '2',
+                      color: Colors.red,   icono: Icons.warning_amber,
+                      subtitulo: 'Requieren atención'),
+            Indicador(label: 'Tráfico',            valor: '4.2 GB',
+                      color: Colors.indigo),
+            Indicador(label: 'Uptime',             valor: '99.8%',
+                      color: Colors.teal, subtitulo: 'Últimos 30 días'),
           ],
         ),
       ),
