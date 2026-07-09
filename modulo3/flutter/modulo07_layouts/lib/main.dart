@@ -1,5 +1,4 @@
 // lib/main.dart
-// ignore: uri_does_not_exist
 import 'package:flutter/material.dart';
 import 'widgets/tarjeta_log.dart';
 import 'widgets/fila_estado.dart';

@@ -56,7 +56,7 @@ class PantallaAppBar extends StatelessWidget {
                 (context, i) => Card(
                   child: ListTile(
                     leading:  Icon(Icons.dns, color: cs.primary),
-                    title:    Text('prod-web-0${i + 1}'),
+                    title:    Text('prod-database-0${i + 1}'),
                     subtitle: Text('10.0.2.${i + 10} · Activo'),
                     trailing: Chip(
                       label:           const Text('OK'),

@@ -3,8 +3,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_shop_app/data/remote/api/categoryremotedatasource.dart';
 import 'package:flutter_shop_app/data/remote/api/productremotedatasource.dart';
-import '../../data/remote/api/category_remote_datasource.dart';
-import '../../data/remote/api/product_remote_datasource.dart';
 import '../../domain/model/category.dart';
 import '../../domain/model/product.dart';
 
@@ -39,8 +37,6 @@ class CatalogState {
     this.maxPrice,
     this.ordering,
   });
-
-  get selectedCategory => null;
 
   CatalogState copyWith({
     List<Product>? products,

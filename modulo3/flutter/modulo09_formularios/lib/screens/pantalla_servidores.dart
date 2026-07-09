@@ -1,8 +1,8 @@
 // lib/screens/pantalla_servidores.dart
 import 'package:flutter/material.dart';
+import 'package:modulo09_formularios/widgets/tarjetaservidorgrid.dart';
 import '../models/servidor_ssh.dart';
 import '../widgets/fila_servidor.dart';
-import '../widgets/tarjeta_servidor_grid.dart';
 
 class PantallaServidores extends StatefulWidget {
   const PantallaServidores({super.key});

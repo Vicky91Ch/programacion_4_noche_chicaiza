@@ -1,11 +1,10 @@
 // lib/main.dart
 import 'package:flutter/material.dart';
 import 'package:modulo09_formularios/main_formulario.dart';
+import 'package:modulo09_formularios/models/servidor_ssh.dart';
 import 'package:modulo09_formularios/screens/pantalla_busqueda.dart';
 import 'package:modulo09_formularios/screens/pantalla_servidores.dart';
 import 'package:modulo09_formularios/widgets/fila_servidor.dart';
-
-import 'models/servidor_ssh.dart' show ServidorSSH;
 
 // ┌──────────────────────────────────────────────────────────────────┐
 // │  Cambia este número y guarda (Ctrl+S) para navegar entre pasos. │
@@ -15,7 +14,7 @@ import 'models/servidor_ssh.dart' show ServidorSSH;
 // │  4  Paso 4  GridView.builder + toggle lista/grid                │
 // │  5  Paso 5  SearchBar + filtrado en tiempo real                 │
 // └──────────────────────────────────────────────────────────────────┘
-const int paso = 5;
+const int paso = 4;
 
 void main() => runApp(MaterialApp(
   debugShowCheckedModeBanner: false,
@@ -28,7 +27,7 @@ void main() => runApp(MaterialApp(
   home: switch (paso) {
     1 => const _Paso1(),
     2 => const _Paso2 (),
-    3 => const _Paso3 (),
+    3 => const _Paso3(),
     4 => const PantallaServidores(),
     5 => const PantallaBusqueda(),
     _ => Scaffold(

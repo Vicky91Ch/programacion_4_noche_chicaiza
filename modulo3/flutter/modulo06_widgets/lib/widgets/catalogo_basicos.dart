@@ -108,7 +108,7 @@ class CatalogoBasicos extends StatelessWidget {
             ),
           ),
           const Divider(height: 32),
-          // ← pega aquí cada bloque al avanzar
+
           // Agrega a children: [ ... ]
 
           // ── Cuatro variantes ──────────────────────────────────────────────────
@@ -180,6 +180,8 @@ class CatalogoBasicos extends StatelessWidget {
           ),
           const Divider(height: 32),
 
+          // ← pega aquí cada bloque al avanzar
+
           // Agrega a children: [ ... ]
           Card(
             elevation: 0,
@@ -204,7 +206,7 @@ class CatalogoBasicos extends StatelessWidget {
             elevation: 12,
             child: ListTile(
               leading: CircleAvatar(
-                backgroundColor: const Color.fromARGB(255, 247, 7, 43),
+                backgroundColor: Colors.red.shade50,
                 child: const Icon(Icons.cancel, color: Colors.red, size: 20),
               ),
               title: const Text('backup-worker'),
@@ -213,6 +215,13 @@ class CatalogoBasicos extends StatelessWidget {
             ),
           ),
           const Divider(height: 32),
+          Card(
+            child: SwitchListTile(
+              value: false,
+              onChanged: (_) {},
+              title: const Text('Modo mantenimiento'),
+            ),
+          ),
 
           // Agrega a children: [ ... ]
           Wrap(
@@ -240,6 +249,8 @@ class CatalogoBasicos extends StatelessWidget {
           ),
           const Divider(height: 32),
 
+          // Agrega a children: [ ... ]
+
           // ── Circular ──────────────────────────────────────────────────────────
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -254,7 +265,7 @@ class CatalogoBasicos extends StatelessWidget {
                 height: 48,
                 child: CircularProgressIndicator(
                   value: 0.7, // 70 %
-                  color: Colors.green,
+                  color: Color.fromARGB(255, 169, 42, 194),
                   strokeWidth: 6,
                 ),
               ),
@@ -263,7 +274,7 @@ class CatalogoBasicos extends StatelessWidget {
                 height: 48,
                 child: CircularProgressIndicator(
                   value: 0.3,
-                  color: Colors.red,
+                  color: Color.fromARGB(255, 42, 39, 214),
                   strokeWidth: 3,
                   strokeCap: StrokeCap.round, // puntas redondeadas
                 ),
@@ -282,11 +293,10 @@ class CatalogoBasicos extends StatelessWidget {
           const SizedBox(height: 8),
           const LinearProgressIndicator(
             value: 1.0,
-            color: Colors.green,
+            color: Color.fromARGB(255, 168, 43, 116),
             minHeight: 6, // barra más gruesa (default: 4)
           ),
           const Divider(height: 32),
-          // Agrega a children: [ ... ]
         ],
       ),
     );

@@ -2,11 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:modulo06_widgets/widgets/contador_limitado.dart';
 import 'package:modulo06_widgets/widgets/etiqueta.dart';
+import 'package:modulo06_widgets/widgets/indicador.dart';
 import 'package:modulo06_widgets/widgets/pantalla_contexto.dart';
 import 'package:modulo06_widgets/widgets/reloj.dart';
 import 'package:modulo06_widgets/widgets/servicio_estado.dart';
 import 'widgets/catalogo_basicos.dart';
-import 'widgets/indicador.dart';
 
 // ┌──────────────────────────────────────────────────────────────────┐
 // │  Cambia este número y guarda (Ctrl+S) para navegar entre pasos. │
@@ -78,7 +78,7 @@ void main() => runApp(MaterialApp(
       appBar: AppBar(title: const Text('Cronómetro')),
       body: const Center(child: Reloj()),
     ),
-    7 => const PantallaContexto(),    // Paso 5 — ya tiene su propio Scaffold
+    7 => const PantallaContexto(),    
     8 => Scaffold(                             // Paso 6
       body: Center(
         child: Wrap(
@@ -98,7 +98,7 @@ void main() => runApp(MaterialApp(
           ],
         ),
       ),
-    ),
+    ),// Paso 5 — ya tiene su propio Scaffold
     _ => Scaffold(body: Center(child: Text('Paso $paso: crea el widget primero'))),
   },
 ));

@@ -1,67 +1,80 @@
 import 'package:flutter/material.dart';
 
-class FilaEstado extends StatelessWidget {
+class AvatarBadge extends StatelessWidget {
   final String nombre;
-  final String detalle;
+  final int    alertas;
   final bool   activo;
+  final String detalle;
 
-  const FilaEstado({
+  const AvatarBadge({
     super.key,
     required this.nombre,
-    required this.detalle,
+    required this.alertas,
     required this.activo,
+    this.detalle = '',
   });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      child: Row(
-        children: [
-          // Ícono de estado
-          Icon(
-            activo ? Icons.circle : Icons.cancel,
-            color: activo ? Colors.green : Colors.red,
-            size:  20,
-          ),
-          const SizedBox(width: 12),
-
-          // Expanded — el Column ocupa todo el espacio restante
-          // Sin Expanded, un nombre largo desbordaría la Row
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize:       MainAxisSize.min,
-              children: [
-                Text(nombre,
-                    style:    const TextStyle(fontWeight: FontWeight.w600),
-                    overflow: TextOverflow.ellipsis),
-                Text(detalle,
-                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
-              ],
-            ),
-          ),
-
-          const SizedBox(width: 8),
-
-          // Chip de estado — queda pegado al borde derecho gracias a Expanded
-          Container(
-            padding:    const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color:        (activo ? Colors.green : Colors.red).withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Text(
-              activo ? 'Activo' : 'Caído',
-              style: TextStyle(
-                fontSize:   11,
-                color:      activo ? Colors.green.shade700 : Colors.red.shade700,
-                fontWeight: FontWeight.w600,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Stack(
+          clipBehavior: Clip.none,
+          children: [
+            Container(
+              width:  56,
+              height: 56,
+              decoration: BoxDecoration(
+                color:        activo ? Colors.indigo.shade100 : Colors.grey.shade200,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Center(
+                child: Text(
+                  nombre.substring(0, 2).toUpperCase(),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize:   18,
+                    color:      activo ? Colors.indigo : Colors.grey,
+                  ),
+                ),
               ),
             ),
-          ),
-        ],
-      ),
+            Positioned(
+              bottom: 0, right: 0,
+              child: Container(
+                width:  14,
+                height: 14,
+                decoration: BoxDecoration(
+                  color:  activo ? Colors.green : Colors.red,
+                  shape:  BoxShape.circle,
+                  border: Border.all(color: Colors.white, width: 2),
+                ),
+              ),
+            ),
+            if (alertas > 0)
+              Positioned(
+                top: -4, right: -4,
+                child: Container(
+                  padding:     const EdgeInsets.all(4),
+                  decoration:  const BoxDecoration(color: Colors.orange, shape: BoxShape.circle),
+                  constraints: const BoxConstraints(minWidth: 18, minHeight: 18),
+                  child: Text(
+                    alertas > 9 ? '9+' : '$alertas',
+                    style: const TextStyle(
+                        color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+          ],
+        ),
+        const SizedBox(height: 4),
+        Text(
+          detalle,
+          style: const TextStyle(fontSize: 11),
+        ),
+      ],
     );
   }
 }
