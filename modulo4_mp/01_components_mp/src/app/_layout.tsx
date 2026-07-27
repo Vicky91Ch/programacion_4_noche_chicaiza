@@ -11,7 +11,20 @@ export default function TabLayout() {
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <AnimatedSplashOverlay />
-      <Stack />
+      <Stack>
+        <Stack.Screen
+          name="index"
+          options={{ title: 'MotoStore - Inicio' }}
+        />
+        <Stack.Screen
+          name="explore"
+          options={{ title: 'Catalogo de Motos' }}
+        />
+        <Stack.Screen
+          name="components"
+          options={{ title: 'Todos los Componentes' }}
+        />
+      </Stack>
     </ThemeProvider>
   );
 }

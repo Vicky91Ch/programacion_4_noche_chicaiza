@@ -1,17 +1,14 @@
-import { Image } from 'expo-image';
-import { SymbolView } from 'expo-symbols';
-import { Platform, Pressable, ScrollView, StyleSheet } from 'react-native';
+import { Platform, ScrollView, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { ExternalLink } from '@/components/external-link';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Collapsible } from '@/components/ui/collapsible';
-import { WebBadge } from '@/components/web-badge';
+import { Card, FilaInfo, TarjetaMoto } from '@/components/motos';
 import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 
-export default function TabTwoScreen() {
+export default function ExploreScreen() {
   const safeAreaInsets = useSafeAreaInsets();
   const insets = {
     ...safeAreaInsets,
@@ -39,85 +36,57 @@ export default function TabTwoScreen() {
       contentContainerStyle={[styles.contentContainer, contentPlatformStyle]}>
       <ThemedView style={styles.container}>
         <ThemedView style={styles.titleContainer}>
-          <ThemedText type="subtitle">Explorar</ThemedText>
+          <ThemedText type="subtitle">Catalogo de Motos</ThemedText>
           <ThemedText style={styles.centerText} themeColor="textSecondary">
-            Catálogo de motocicletas{'\n'}disponibles en inventario.
+            Explora nuestra variedad de motos disponibles
           </ThemedText>
-
-          <ExternalLink href="https://docs.expo.dev" asChild>
-            <Pressable style={({ pressed }) => pressed && styles.pressed}>
-              <ThemedView type="backgroundElement" style={styles.linkButton}>
-                <ThemedText type="link">Documentación Expo</ThemedText>
-                <SymbolView
-                  tintColor={theme.text}
-                  name={{ ios: 'arrow.up.right.square', android: 'link', web: 'link' }}
-                  size={12}
-                />
-              </ThemedView>
-            </Pressable>
-          </ExternalLink>
         </ThemedView>
 
         <ThemedView style={styles.sectionsWrapper}>
-          <Collapsible title="Enrutamiento basado en archivos">
+          <TarjetaMoto
+            nombre="Honda CBR 600RR"
+            precio="$12,500"
+            cilindraje="600cc"
+            anio="2024"
+            colorMoto="#E53935"
+          />
+
+          <TarjetaMoto
+            nombre="Yamaha R1"
+            precio="$18,900"
+            cilindraje="1000cc"
+            anio="2024"
+            colorMoto="#1E88E5"
+          />
+
+          <TarjetaMoto
+            nombre="Suzuki GSX-R750"
+            precio="$14,200"
+            cilindraje="750cc"
+            anio="2024"
+            colorMoto="#FDD835"
+          />
+
+          <Card titulo="Especificaciones Honda CBR 600RR" color="#1565C0">
+            <FilaInfo etiqueta="Motor:" valor="4 cilindros en linea" />
+            <FilaInfo etiqueta="Potencia:" valor="118 HP" />
+            <FilaInfo etiqueta="Peso:" valor="194 kg" />
+            <FilaInfo etiqueta="Tanque:" valor="18 litros" />
+            <FilaInfo etiqueta="Precio:" valor="$12,500" />
+          </Card>
+
+          <Collapsible title="Formas de Pago">
             <ThemedText type="small">
-              Esta app tiene dos pantallas: <ThemedText type="code">src/app/index.tsx</ThemedText> y{' '}
-              <ThemedText type="code">src/app/explore.tsx</ThemedText>
+              Aceptamos efectivo, tarjeta de credito/debito, transferencia bancaria y financiamiento.
             </ThemedText>
-            <ThemedText type="small">
-              El archivo de layout en <ThemedText type="code">src/app/_layout.tsx</ThemedText> configura
-              el navegador de tabs.
-            </ThemedText>
-            <ExternalLink href="https://docs.expo.dev/router/introduction">
-              <ThemedText type="linkPrimary">Saber más</ThemedText>
-            </ExternalLink>
           </Collapsible>
 
-          <Collapsible title="Soporte para Android, iOS y web">
-            <ThemedView type="backgroundElement" style={styles.collapsibleContent}>
-              <ThemedText type="small">
-                Puedes abrir este proyecto en Android, iOS y web. Para abrir la versión web,
-                presiona <ThemedText type="smallBold">w</ThemedText> en la terminal.
-              </ThemedText>
-              <Image
-                source={require('@/assets/images/tutorial-web.png')}
-                style={styles.imageTutorial}
-              />
-            </ThemedView>
-          </Collapsible>
-
-          <Collapsible title="Imágenes">
+          <Collapsible title="Entrega Inmediata">
             <ThemedText type="small">
-              Para imágenes estáticas, puedes usar los sufijos <ThemedText type="code">@2x</ThemedText> y{' '}
-              <ThemedText type="code">@3x</ThemedText> para diferentes densidades de pantalla.
-            </ThemedText>
-            <Image source={require('@/assets/images/react-logo.png')} style={styles.imageReact} />
-            <ExternalLink href="https://reactnative.dev/docs/images">
-              <ThemedText type="linkPrimary">Saber más</ThemedText>
-            </ExternalLink>
-          </Collapsible>
-
-          <Collapsible title="Modo claro y oscuro">
-            <ThemedText type="small">
-              Esta plantilla soporta modo claro y oscuro. El hook{' '}
-              <ThemedText type="code">useColorScheme()</ThemedText> te permite detectar el esquema
-              de color del sistema para ajustar los colores de la interfaz.
-            </ThemedText>
-            <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-              <ThemedText type="linkPrimary">Saber más</ThemedText>
-            </ExternalLink>
-          </Collapsible>
-
-          <Collapsible title="Animaciones">
-            <ThemedText type="small">
-              Esta plantilla incluye un ejemplo de componente animado. El componente{' '}
-              <ThemedText type="code">src/components/ui/collapsible.tsx</ThemedText> usa
-              la librería <ThemedText type="code">react-native-reanimated</ThemedText> para
-              animar la apertura de esta sección.
+              Tenemos motos en stock para entrega inmediata. Consulta disponibilidad.
             </ThemedText>
           </Collapsible>
         </ThemedView>
-        {Platform.OS === 'web' && <WebBadge />}
       </ThemedView>
     </ScrollView>
   );
@@ -144,35 +113,9 @@ const styles = StyleSheet.create({
   centerText: {
     textAlign: 'center',
   },
-  pressed: {
-    opacity: 0.7,
-  },
-  linkButton: {
-    flexDirection: 'row',
-    paddingHorizontal: Spacing.four,
-    paddingVertical: Spacing.two,
-    borderRadius: Spacing.five,
-    justifyContent: 'center',
-    gap: Spacing.one,
-    alignItems: 'center',
-  },
   sectionsWrapper: {
     gap: Spacing.five,
     paddingHorizontal: Spacing.four,
     paddingTop: Spacing.three,
   },
-  collapsibleContent: {
-    alignItems: 'center',
-  },
-  imageTutorial: {
-    width: '100%',
-    aspectRatio: 296 / 171,
-    borderRadius: Spacing.three,
-    marginTop: Spacing.two,
-  },
-  imageReact: {
-    width: 100,
-    height: 100,
-    alignSelf: 'center',
-  },
-})
+});

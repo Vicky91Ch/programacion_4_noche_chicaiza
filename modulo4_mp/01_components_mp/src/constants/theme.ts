@@ -1,7 +1,3 @@
-/**
- * Colores utilizados en la app de venta de motos.
- */
-
 import '@/global.css';
 
 import { Platform } from 'react-native';
